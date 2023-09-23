@@ -1,0 +1,12 @@
+version: '3.7'
+services:
+  resod_pg:
+    image: postgres:latest
+    container_name: solva
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: solva
+      POSTGRES_USER: solva
+      POSTGRES_PASSWORD: solva
+    ports:
+      - 5433:5432
