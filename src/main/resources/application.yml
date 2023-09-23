@@ -1,18 +1,17 @@
-# DataSource configuration
+server:
+    port: 8090
+
 spring:
     datasource:
-        url: jdbc:postgresql://localhost:${configurations.dbPort}/${configurations.dbName}
+        url: jdbc:postgresql://localhost:${configurations.port}/${configurations.database}
         driver-class-name: org.postgresql.Driver
-        username: ${configurations.dbUsername}
-        password: ${configurations.dbPassword}
+        username: ${configurations.username}
+        password: ${configurations.password}
     mvc:
         pathmatch:
             matching-strategy: ant_path_matcher
     liquibase:
         change-log: db/changeLog.xml
-
-
-# JPA configuration
     jpa:
         hibernate:
             ddl-auto: none
@@ -23,19 +22,13 @@ spring:
                     lob:
                         non_contextual_creation: true
 
-# API configuration
 api:
     key: 7044406eb5ff4f0791cf0975ca39a5d1
     kzt: https://api.twelvedata.com/time_series?symbol=USD/KZT&interval=1day&outputsize=12&apikey=${api.key}
     rub: https://api.twelvedata.com/time_series?symbol=USD/RUB&interval=1day&outputsize=12&apikey=${api.key}
 
-# Other configurations
 configurations:
-    dbPort: 5433
-    dbName: solva
-    dbUsername: solva
-    dbPassword: solva
-
-server:
-    port: 8090
-
+    port: 5433
+    database: solva
+    username: solva
+    password: solva
