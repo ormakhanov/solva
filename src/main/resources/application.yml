@@ -21,6 +21,7 @@ spring:
                 jdbc:
                     lob:
                         non_contextual_creation: true
+        open-in-view: false
 
 api:
     key: 7044406eb5ff4f0791cf0975ca39a5d1

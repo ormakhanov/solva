@@ -36,7 +36,7 @@ public class LimitServiceImpl implements LimitService {
     }
 
     @Override
-    public LimitDTO create(SaveLimitDTO initLimitDTO) throws Exception {
+    public LimitDTO create(SaveLimitDTO initLimitDTO) {
             if (limitRepository.findFirstByUserAccountAndCategoryOrderByLimitDatetimeDesc(initLimitDTO.getAccount(), initLimitDTO.getCategory()) == null) {
                 return limitRepository.save(new LimitEntity(
                         initLimitDTO.getAccount(),
@@ -78,10 +78,4 @@ public class LimitServiceImpl implements LimitService {
             throw new ResourceNotFoundException("There is no such account " + account);
         }
     }
-
-
-    public void exForTest() {
-        throw new RuntimeException();
-    }
-
 }
