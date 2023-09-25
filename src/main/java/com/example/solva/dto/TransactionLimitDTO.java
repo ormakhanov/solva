@@ -23,6 +23,7 @@ public class TransactionLimitDTO {
     private String dateTime;
     private BigDecimal accountLimit;
     private BigDecimal exceededLimit;
+    private String currency;
     private String limitSettingDate;
     private boolean limitExceeded;
 

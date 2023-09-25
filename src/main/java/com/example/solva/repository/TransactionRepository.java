@@ -15,7 +15,7 @@ public interface TransactionRepository extends JpaRepository<TransactionEntity, 
 
     List<TransactionEntity> findAllByAccountFrom(String accountFrom);
 
-    @Query("SELECT new com.example.solva.dto.TransactionLimitDTO(t.transactionId, t.accountFrom, t.accountTo, t.currencyShortname, t.sum, t.category, t.dateTime, l.limitSum, l.limitBalance, l.limitDatetime, t.limitExceeded)" +
+    @Query("SELECT new com.example.solva.dto.TransactionLimitDTO(t.transactionId, t.accountFrom, t.accountTo, t.currencyShortname, t.sum, t.category, t.dateTime, l.limitSum, l.limitBalance, l.limitCurrencyShortname, l.limitDatetime, t.limitExceeded)" +
             "FROM TransactionEntity t LEFT JOIN t.limitEntity  l " +
             "WHERE t.limitExceeded = true AND t.accountFrom = :account")
     List<TransactionLimitDTO> findAllByAccountFromJoinLimits(String account);
