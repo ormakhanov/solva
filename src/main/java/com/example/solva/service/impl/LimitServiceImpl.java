@@ -13,11 +13,13 @@ import com.example.solva.dto.SaveLimitDTO;
 import com.example.solva.dto.LimitDTO;
 import com.example.solva.dto.UpdateLimitDTO;
 import lombok.AllArgsConstructor;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -76,6 +78,36 @@ public class LimitServiceImpl implements LimitService {
             return limitRepository.saveAndFlush(limitEntity).getLimitBalance().doubleValue() < 0;
         } else {
             throw new ResourceNotFoundException("There is no such account " + account);
+        }
+    }
+
+    @Scheduled(cron = "0 0 1 * * ?")
+    public void setMonthlyLimits() {
+        LocalDate currentDate = LocalDate.now();
+
+        if (currentDate.getDayOfMonth() == 1) {
+            List<String> userAccounts = limitRepository.findAllDistinctUserAccounts();
+
+            for (String userAccount : userAccounts) {
+                LimitEntity productLimit = new LimitEntity(
+                        userAccount,
+                        CategoryEnum.product,
+                        currentDate.toString(),
+                        new BigDecimal("1000"),
+                        new BigDecimal("1000")
+                );
+
+                LimitEntity serviceLimit = new LimitEntity(
+                        userAccount,
+                        CategoryEnum.service,
+                        currentDate.toString(),
+                        new BigDecimal("1000"),
+                        new BigDecimal("1000")
+                );
+
+                limitRepository.save(productLimit);
+                limitRepository.save(serviceLimit);
+            }
         }
     }
 }

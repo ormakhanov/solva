@@ -20,5 +20,6 @@ public interface LimitRepository extends JpaRepository<LimitEntity,Long> {
             "AND l.limitDatetime = (SELECT MAX(l2.limitDatetime) FROM LimitEntity l2 WHERE l2.userAccount = :userAccount AND l2.category = l.category) ")
     List<LimitEntity> findAllByUserAccountAndCategory(@Param("userAccount") String userAccount);
 
-
+    @Query("SELECT DISTINCT userAccount FROM LimitEntity")
+    List<String> findAllDistinctUserAccounts();
 }
