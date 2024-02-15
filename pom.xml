@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.example</groupId>
-    <artifactId>Solva</artifactId>
+    <artifactId>Transaction-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Solva</name>
-    <description>Solva</description>
+    <name>Transaction-service</name>
+    <description>Transaction-service</description>
     <properties>
         <java.version>17</java.version>
     </properties>
